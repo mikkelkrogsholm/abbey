@@ -1,0 +1,43 @@
+<!-- Extends the base html -->
+{% extends "base.html" %}
+
+<!-- Title -->
+{% block title %} {{ title }} {% endblock %}
+
+
+<!-- Extra head stuff -->
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"/>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+<script type="text/javascript" class="init">
+  $(document).ready(function () {
+  	$('#mytable').DataTable();
+  });
+</script>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+  <h1 class="display-3">{{ title }}</h1>
+
+  <p>
+    If you look at the source code for this page you will learn how to:
+    <ul>
+      <li>use dynamic routing for multiple pages</li>
+      <li>use one template for multiple pages</li>
+      <li>include javascript into your templates</li>
+    </ul>
+  </p>
+
+  <br>
+
+  {{ tbl }}
+
+{% endblock %}

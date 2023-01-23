@@ -1,0 +1,32 @@
+<!-- Extends the base html -->
+{% extends "base.html" %}
+
+<!-- Title -->
+{% block title %} Datasets {% endblock %}
+
+
+<!-- Extra head stuff -->
+{% block head %}
+{% endblock %}
+
+
+<!-- Content -->
+{% block content %}
+
+  <p>
+    Below is a list of data frames from the <code> datasets </code> packages. You can click each one to visit them.
+  </p>
+
+  <p>
+    If you look at the source code for this page you will learn how to:
+    <ul>
+      <li>use for loops in jinja</li>
+      <li>use the <a href="https://davidchall.github.io/jinjar/articles/template-syntax.html#string-data"><code>lower()</code></a> function in jinja</li>
+    </ul>
+  </p>
+
+  {% for dataframe in dataframes -%}
+    <a class="btn btn-outline-dark m-2" href="/dataset/{{ lower(dataframe) }}" role="button">{{ dataframe }}</a>
+  {%- endfor -%}
+
+{% endblock %}

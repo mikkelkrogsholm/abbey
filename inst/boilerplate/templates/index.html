@@ -1,0 +1,54 @@
+<!-- Extends the base html -->
+{% extends "base.html" %}
+
+<!-- Title -->
+{% block title %} Abbey {% endblock %}
+
+
+<!-- Extra head stuff -->
+{% block head %}
+{% endblock %}
+
+
+<!-- Content -->
+{% block content %}
+
+  <div class = "row">
+    <h1 class = "display-1">
+      Welcome to the Abbey
+    </h1>
+  </div>
+
+  <div class = "row">
+    <p>
+      Abbey is a small R package with a boilerplate for creating a web application in R using the
+      <a href="https://www.rplumber.io/"><code>plumber</code></a> and the
+      <a href="https://davidchall.github.io/jinjar/"><code>jinjar</code></a> packages.
+    </p>
+
+    <p>
+      The inspiration for the setup derives from python where you can use
+      <a href="https://fastapi.tiangolo.com/"><code>fastAPI</code></a> and
+      <a href="https://jinja.palletsprojects.com/"><code>jinja2</code></a>
+      to accomplice the same.
+    </p>
+
+    <p>
+      The boilerplate uses
+      <a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/"><code>Bootstrap 5.3</code></a> for styling.
+    </p>
+
+    <p>
+      The package is called Abbey, because jinja means "Temple" in japanese.
+    </p>
+
+  </div>
+
+  <div class = "row">
+    <div class="col">
+      <img src="/static/images/logo.svg" class="rounded mx-auto d-block" alt="Abbey Logo" width="500">
+    </div>
+  </div>
+
+
+{% endblock %}
