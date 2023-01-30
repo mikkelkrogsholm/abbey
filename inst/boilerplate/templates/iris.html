@@ -12,4 +12,15 @@
 
 <!-- Content -->
 {% block content %}
+
+  <p>
+    If you look at the source code for this page you will learn how to:
+    <ul>
+      <li>convert a R markdown document into a HMTL fragment</li>
+      <li>load this fragment into a jinja template</li>
+    </ul>
+  </p>
+
+  {{ md2html }}
+
 {% endblock %}

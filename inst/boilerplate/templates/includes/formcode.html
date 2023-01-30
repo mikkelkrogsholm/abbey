@@ -1,0 +1,27 @@
+<script>
+  function createURL() {
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+    const params = new URLSearchParams(formData).toString();
+
+    const currentURL = window.location.origin + window.location.pathname;
+    const newURL = `${currentURL}?${params}`;
+
+    window.location.href = newURL;
+    return ;
+  }
+</script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const form = document.getElementById("form");
+
+  for (const input of form.elements) {
+    if (input.name) {
+      const value = params.get(input.name);
+      if (value) {
+        input.value = value;
+      }
+    }
+  }
+</script>

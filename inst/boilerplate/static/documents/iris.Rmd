@@ -1,0 +1,59 @@
+---
+title: "Iris Analysis"
+author: "Mikkel Freltoft Krogsholm"
+date: "2023-01-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# The Iris dataset
+
+This dataset is already build into RStudio, so it is easy to find.
+
+For beginners in data analytics, this is an excellent starting point to demonstrate basic techniques of plotting and analyzing this dataset. 
+
+The data was originally collected by the British statistician and biologist Ronald Fisher in his 1936 paper “The use of multiple measurements in taxonomic problems”, while it is also known as Anderson’s Iris data set due to the work of Edgar Anderson, who gathered the data to measure the morphological variation of three species of Iris flowers. 
+
+The dataset contains 50 observations of four variables: sepal length and width, and petal length and width, all measured in centimeters. The species included are Iris setosa, versicolor, and virginica.
+
+## Data Overview
+
+```{r summary}
+summary(iris)
+```
+
+```{r head}
+head(iris)
+```
+
+## Plotting Iris
+```{r ggplot}
+ggplot(iris) +
+  geom_histogram(aes(x = Petal.Length)) +
+  theme_minimal() + 
+  labs(x = "Petal Length", y = "Frequency")
+```
+
+```{r pairs}
+pairs(iris[,1:4])
+```
+
+## Clustering Iris
+```{r kmeans}
+iris2 <- iris
+iris2$Species <- NULL
+(kmeans.result <- kmeans(iris2, 3))
+```
+
+```{r table}
+table(iris$Species, kmeans.result$cluster)
+```
+
+```{r clusterplot}
+plot(iris2[c("Sepal.Length", "Sepal.Width")], col = kmeans.result$cluster)
+```
+

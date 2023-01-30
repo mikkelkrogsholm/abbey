@@ -32,8 +32,77 @@ function(){
 # The IRIS page ################################################################
 
 
+#* Show Iris page
+#* @get /iris
+#* @serializer html
+function(){
+
+  tf <- tempfile(fileext = ".html")
+
+  rmarkdown::render(input = "static/documents/iris.Rmd",
+                    output_format = rmarkdown::html_fragment(),
+                    output_file = tf)
+
+  md2html <- read_file(tf)
+
+  # Template
+  template <- read_file("templates/iris.html")
+
+  # Data
+  params <- list(md2html = md2html)
+
+  # Render
+  template |>
+    render(!!!params, .config = config)
+
+}
+
 # The MTCARS page ##############################################################
 
+#* Show mtcars page
+#* @get /mtcars
+#* @serializer html
+function(req){
+
+  # Check url params
+  qs <- shiny::parseQueryString(req$QUERY_STRING)
+
+  g <- ggplot(mtcars_tbl)
+
+  if(length(qs) != 0){
+    if(qs$graphic == "scatter"){
+      g <- g + geom_point(aes(wt, mpg))
+    }
+
+    if(qs$graphic == "bar"){
+      g <- g + geom_bar(aes(x=cyl))
+    }
+
+    g <- g +
+      labs(title = qs$title,
+           subtitle = qs$subtitle) +
+      theme_minimal()
+  }
+
+  encoded_graphic <- encode_graphic(g)
+
+  # Define the plot types available
+  graphics <- list(
+    list(name = "Scatterplot", value = "scatter"),
+    list(name = "Bar chart", value = "bar")
+  )
+
+  # Template
+  template <- read_file("templates/mtcars.html")
+
+  # Data
+  params <- list(encoded_graphic = encoded_graphic, graphics = graphics)
+
+  # Render
+  template |>
+    render(!!!params, .config = config)
+
+}
 
 # The DIAMONDS page ############################################################
 
@@ -49,7 +118,7 @@ function(){
   template <- read_file("templates/datasets.html")
 
   # Data
-  params <- list(dataframes = dataset_dataframes())
+  params <- list(dataframes = get_names_of_datasets())
 
   # Render
   template |>
@@ -63,7 +132,7 @@ function(){
 #* @serializer html
 function(dataset){
 
-  list_of_datasets <- dataset_dataframes()
+  list_of_datasets <- get_names_of_datasets()
   index <- which(str_to_lower(list_of_datasets) == dataset)
   dataset_name <- list_of_datasets[index]
 

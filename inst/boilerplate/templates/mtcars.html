@@ -7,9 +7,58 @@
 
 <!-- Extra head stuff -->
 {% block head %}
+
 {% endblock %}
 
 
 <!-- Content -->
 {% block content %}
+
+<br>
+
+  <p>
+    If you look at the source code for this page you will learn how to:
+    <ul>
+      <li>How to create a parameterized url using inputs</li>
+      <li>How to pass parameters to a url using javascript</li>
+      <li>How to set parameters based on a url using javascript</li>
+      <li>How to change the output of the site based on the parameters</li>
+      <li>How to use 'includes' to add content to a site</li>
+    </ul>
+  </p>
+
+<br>
+
+<form id="form">
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" name="title" id="title" aria-describedby="titleHelp" placeholder="Enter a title">
+  </div>
+
+  <div class="form-group">
+    <label for="subtitle">Subtitle</label>
+    <input type="text" class="form-control" name="subtitle" id="subtitle" aria-describedby="subtitleHelp" placeholder="Enter a subtitle">
+  </div>
+
+  <select class="form-select" aria-label="Select a graphics type" name="graphic" id ="graphic">
+    <option selected>Select a graphics type</option>
+
+    {% for graphic in graphics -%}
+    <option value="{{graphic.value}}">{{graphic.name}}</option>
+    {%- endfor -%}
+
+  </select>
+
+  <button type="button" class="btn btn-primary" onclick="createURL()">Create graphic</button>
+
+</form>
+
+<br>
+
+<img src="{{ encoded_graphic }}" class="rounded mx-auto d-block" alt="...">
+
+<!-- Here we include some js code to handle the form inputs -->
+{% include "includes/formcode.html" %}
+
 {% endblock %}
